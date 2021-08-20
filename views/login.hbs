@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Login</title>
+
+</head>
+
+<div class="loginPage">
+    <form action="/">
+                    <input type="hidden" name="_id" value="{{_id}}">
+
+        <input type="text" placeholder="Username"  disabled > 
+        <br><br>
+        <input type="text" placeholder="password" disabled>
+          <br><br>
+         <a href="/home"> <span class="login">Login</span>
+         
+          </a>
+    </form>
+</div>
+<div style="margin: 100px;"></div>
+ 
+ <form action="/" method="POST">
+ {{#each dataList}} 
+ <ul>
+    <li>
+{{stateName}}
+    </li>
+</ul>
+{{/each}}
+<body>
+
+ </form>
+
+   
+
+
+</body>
+
+</html>

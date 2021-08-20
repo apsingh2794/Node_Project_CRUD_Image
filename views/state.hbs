@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="css/style.css">
+    <title>State</title>
+</head>
+<body>
+
+      <div class="navBar">
+     <ul>
+         <li> <a href="/home"> Home </a> </li>
+         <li  class="active"> <a href="/state"> State </a> </li> 
+         <li> <a href="/dist"> Distirct </a> </li>
+         <li> <a href="/child"> Child </a> </li>
+         <li> <a href="/login"> Logout </a> </li>
+     </ul>
+ </div>
+    <div style="margin:50px ;"></div>
+    <br><br>
+    <form action="/state" method="post">
+    {{!-- <input type="hidden" name="_id" value="{{_id}}"> --}}
+         <div class="form-group">
+        <input type="text" name="stateName" id="stateName" placeholder="Enter State Name" required>
+         </div>
+         <br><br>
+          <div class="form-group">
+    <button type="submit" >
+        ADD STATE
+     </button>
+     </div>
+    </form>
+
+    <div style="margin:100px ;"></div>
+
+ {{#each StateList}} 
+<div class="state">
+    <div class="Sname"> 
+          Number:<span class="count"></span> <br>
+      State Name: <b> {{stateName}} </b>
+    </div>
+  
+</div>
+{{/each}}
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="css/style.css">
+    <title>View</title>
+</head>
+<body>
+     <div style="margin:50px ;"></div>
+<a href="/">Login</a>
+        <div class="navBar">
+     <ul>
+         <li> <a href="/home"> Home </a> </li>
+         <li> <a href="/state"> State </a> </li> 
+         <li> <a href="/dist"> Distirct </a> </li>
+         <li> <a href="/child"> Child </a> </li>
+         <li> <a href="/login"> Logout </a> </li>
+     </ul>
+ </div>
+    <div style="margin:50px ;"></div>
+    <br><br>
+    <div class="view">
+          <span class="viewTag">Name:  </span> <span class="viewName">{{viewData.name}} </span>
+          <span class="viewTag">Gender:  </span> <span class="viewName">{{viewData.gender}} </span>
+          <span class="viewTag">Date Of Birth:  </span> <span class="viewName">{{viewData.dob}} </span> <br> 
+          <span class="viewTag">Father's Name:  </span> <span class="viewName">{{viewData.fatherName}} </span>
+          <span class="viewTag">Mather's Name:  </span> <span class="viewName"> {{viewData.motherName}} </span>
+          <span class="viewTag">State:  </span> <span class="viewName">{{viewData.stateName}} </span> <br>
+          <span class="viewTag">District:  </span> <span class="viewName"> {{viewData.distName}} </span>
+      
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/style.css">
+    <title>District</title>
+</head>
+<body>
+      <div class="navBar">
+     <ul>
+         <li> <a href="/home"> Home </a> </li>
+         <li> <a href="/state"> State </a> </li> 
+         <li  class="active"> <a href="/dist"> Distirct </a> </li>
+         <li> <a href="/child"> Child </a> </li>
+         <li> <a href="/login"> Logout </a> </li>
+     </ul>
+ </div>
+    <div style="margin:50px ;"></div>
+    <br><br>
+    <form action="/dist" method="post">
+    {{!-- <input type="hidden" name="_id" value="{{_id}}"> --}}
+         <div class="form-group">
+       <label for="stateName">Choose a State:</label>
+
+<select name="stateName">
+  <option value="Nothing_Select">Select State Name</option>
+  {{#each StateList}}
+  <option name="stateName">{{stateName}}</option>
+  {{/each}}
+</select>
+         </div>
+         <br><br>
+         <div class="form-group">
+        <input type="text" name="distName" id="distName" placeholder="Enter District Name" required>
+         </div>
+         <br><br>
+          <div class="form-group">
+    <button type="submit" onclick="number()" >
+        ADD District
+     </button>
+     </div>
+    </form>
+
+{{#each DistName}} 
+<div class="state">
+    <div class="Sname"> 
+      Number:<span class="count"></span> <br>
+      State Name: <b> {{stateName}} </b> <br>
+      Dist Name: {{distName}}
+    </div>
+</div>
+{{/each}} 
+
+
+
+</body>
+ 
+</html>
