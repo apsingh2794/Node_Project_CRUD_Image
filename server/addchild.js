@@ -24,6 +24,9 @@ const child = new Schema({
   distName: {
     type: String,
   },
+  userImage:{ 
+    type:String
+  },
 });
 
 module.exports = mongoose.model("childName", child);

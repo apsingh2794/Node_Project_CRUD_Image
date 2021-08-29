@@ -3,17 +3,34 @@ const app = new express();
 const port = process.env.PORT || 4001;
 const path = require("path");
 const hbs = require("hbs");
+const multer = require("multer");
 const bodyParser = require("body-parser");
 require("./server/database");
 const StateName = require("./server/State");
 const DistName = require("./server/dist");
 const childName = require("./server/addChild");
-
+const uploadImg = require("./server/upload");
+const { Script } = require("vm");
 // Set View Engine
 app.set("view engine", "hbs");
-
-// load Assets
-app.use("/css", express.static(path.resolve(__dirname, "assets/css")));
+////////////
+const Storage = multer.diskStorage({
+  destination: "./Images",
+  // By default, multer removes file extensions so let's add them back
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname +"_"+ Date.now()+path.extname(file.originalname)
+      );
+    },
+  });
+  
+  // MiddleWare to Upload Image
+  const upload = multer({ storage: Storage }).single("userImage");
+  
+  // load Assets
+  app.use("/css", express.static(path.resolve(__dirname, "assets/css")));
+  app.use("/Images",express.static(__dirname + '/Images'));
 // app.use("/img", express.static(path.resolve(__dirname, "assets/img")));
 // app.use("/js", express.static(path.resolve(__dirname, "assets/js")));
 
@@ -21,7 +38,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // For fatch data from mongo DB
-
 app.get("/", (req, res) => {
   res.render("login");
 });
@@ -36,36 +52,22 @@ app.get("/login", (req, res) => {
 
 app.get("/child", (req, res) => {
   childName.find({}, function (err, child_data) {
-    res.render("child", {
-      ChildData: child_data,
-    });
+    res.render("child", { ChildData: child_data });
   });
 });
 
-// app.get("/view", (req, res) => {
-//   childName.find({}, function (err, child_data) {
-//     res.render("view", {
-//       ChildData: child_data,
-//     });
-//   });
-// }); 
 ////////////
 app.get("/view/:id", async (req, res) => {
   try {
     childName.findById(req.params.id, (err, doc) => {
       if (!err) {
-        res.render("view", {
-          viewData: doc,
-        });
+        res.render("view", { viewData: doc });
       }
     });
   } catch (err) {
     console.log(err);
   }
 });
-// app.get("/addChild", (req, res) => {
-//   res.render("addChild");
-// });
 
 app.get("/dist", (req, res) => {
   StateName.find({}, function (err, datas_1) {
@@ -90,9 +92,7 @@ app.post("/dist", async (req, res) => {
 
 app.get("/state", (req, res) => {
   StateName.find({}, function (err, datas) {
-    res.render("state", {
-      StateList: datas,
-    });
+    res.render("state", { StateList: datas });
   });
 });
 
@@ -117,23 +117,28 @@ app.get("/addChild", (req, res) => {
   });
 });
 
-app.post("/addChild", async (req, res) => {
-  
-  if(req.body.name==""){
-    res.redirect("child");
-  }
-  else{
+app.post("/addChild", upload, async (req, res) => {
+  var empDetails = new childName({
+    name: req.body.name,
+    gender: req.body.gender,
+    dob: req.body.dob,
+    fatherName: req.body.fatherName,
+    motherName: req.body.motherName,
+    stateName: req.body.stateName,
+    distName: req.body.distName,
+    userImage: req.file.filename,
+  });
+  var upldImage = new uploadImg({
+    userImage: req.file.filename,
+  });
   try {
-    const regiChild = new childName(req.body);
-    const registerchild = await regiChild.save();
-    console.log(registerchild);
+    const regiChild = await empDetails.save();
+    const uploadImg = await upldImage.save();
     res.redirect("child");
   } catch (err) {
     console.log(err);
   }
-}
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running at port ${port}`);

@@ -1,65 +1,151 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-    <title>Child</title>
-</head>
-<body>
-    
-<div class="navBar">
-     <ul>
-         <li> <a href="/home"> Home </a> </li>
-         <li> <a href="/state"> State </a> </li> 
-         <li> <a href="/dist"> Distirct </a> </li>
-         <li  class="active"> <a href="/child"> Child </a> </li>
-         <li> <a href="/login"> Logout </a> </li>
-     </ul>
- </div>
-    <div style="margin:50px ;"></div>
-    <div style="margin-left: 50px;">
-<a href="/addChild">Add Child</a>
-    </div>
-    <br><br>
-      {{!-- Form Start     --}}
-            <form action="/" method="post">
-                {{!-- <input type="hidden" name="_id" value="{{course._id}}"> --}}
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Name</th>
-                            <th>Sex</th>
-                            <th>DOB</th>
-                            <th>Father's Name</th>
-                            <th>Mother's Name</th>
-                            <th>State</th>
-                            <th>District</th>
-                            <th>Action</th>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>Child</title>
+    </head>
+    <body>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {{#each ChildData}}
+        <div class="navBar">
+            <ul>
+                <li>
+                    <a href="/home">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/state">
+                        State
+                    </a>
+                </li>
+                <li>
+                    <a href="/dist">
+                        Distirct
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/child">
+                        Child
+                    </a>
+                </li>
+                <li>
+                    <a href="/login">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div style="margin:50px ;"></div>
+        <div style="margin-left: 50px;">
+            <a href="/addChild">Add Child</a>
+        </div>
+        <br><br>
+        <input
+            type="text"
+            id="myInput"
+            placeholder="Search By Name...."
+            onkeyup="search()"/>
+        <input
+            type="text"
+            id="myInput_1"
+            placeholder="Search By Father'Name...."
+            onkeyup="search_1()"/>
+        <br><br>
+
+        {{!-- Form Start     --}}
+        <form action="/" method="post">
+            {{!-- <input type="hidden" name="_id" value="{{course._id}}"> --}}
+            <table id="myTable" class="table table-hover">
+                <thead>
                     <tr>
-                        <td><span class="count"></span> </td>
-                        <td >{{name}}</td>
-                        <td >{{gender}}</td>
-                        <td>{{dob}}</td>
-                        <td>{{fatherName}}</td>
-                        <td>{{motherName}}</td>
-                        <td>{{stateName}}</td>
-                        <td>{{distName}}</td>
-                        <td> <a  href="/view/{{_id}}" id="{{_id}}" class="view"> View </a></td>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Sex</th>
+                        <th>DOB</th>
+                        <th>Father's Name</th>
+                        <th>Mother's Name</th>
+                        <th>State</th>
+                        <th>District</th>
+                        <th>Action</th>
+
                     </tr>
+                </thead>
+                <tbody>
+                
+                    {{#each ChildData}}
+                        <tr>
+                            <td>
+                                <span class="count"></span>
+                            </td>
+                            <td >{{name}}</td>
+                            <td >{{gender}}</td>
+                            <td>{{dob}}</td>
+                            <td>{{fatherName}}</td>
+                            <td>{{motherName}}</td>
+                            <td>{{stateName}}</td>
+                            <td>{{distName}}</td>
+                            <td>
+                                <a href="/view/{{_id}}" id="{{_id}}" class="view">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
                     {{/each}}
-                    </tbody>
+                </tbody>
 
+            </table>
+        </form>
+        {{!-- Form End     --}}
+        <script>
+            
+            function search() {
+                let filter = document
+                    .getElementById("myInput")
+                    .value
+                    .toUpperCase();
+                let myTable = document.getElementById("myTable");
+                let tr = myTable.getElementsByTagName("tr");
 
-                </table>
-            </form>
-              {{!-- Form End     --}}
-</body>
+                for (var i = 0; i < tr.length; i++) {
+                    let td = tr[i].getElementsByTagName("td")[1];
+
+                    if (td) {
+                        let textValue = td.textContent || td.innerHTML;
+                        if (textValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            /////////////
+            function search_1() {
+                let filter_1 = document
+                    .getElementById("myInput_1")
+                    .value
+                    .toUpperCase();
+                let myTable = document.getElementById("myTable");
+                let tr = myTable.getElementsByTagName("tr");
+
+                for (var i = 0; i < tr.length; i++) {
+                    let td = tr[i].getElementsByTagName("td")[4];
+
+                    if (td) {
+                        let textValue = td.textContent || td.innerHTML;
+                        if (textValue.toUpperCase().indexOf(filter_1) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+
+    </body>
 </html>

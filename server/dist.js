@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 const user = new Schema({
- 
   stateName: {
     type: String,
   },

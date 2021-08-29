@@ -1,85 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Add Child</title>
-</head>
-<body>
-   <div class="navBar">
-     <ul>
-         <li> <a href="/home"> Home </a> </li>
-         <li> <a href="/state"> State </a> </li> 
-         <li> <a href="/dist"> Distirct </a> </li>
-         <li  class="active"> <a href="/child"> Child </a> </li>
-         <li> <a href="/login"> Logout </a> </li>
-     </ul>
- </div>
-    <div style="margin:50px ;"></div>
-    <br>
-<br><br>
-     {{!-- Form Start --}}
-            <form action="/addChild" method="post" id="add_child">
-                {{!-- <input type="hidden" name="_id" value="{{course._id}}"> --}}
-                {{!-- <div class="new-user"> --}}
-                    <div class="form-group">
-                        <label for="name" class="radio-label">Name</label>
-                        <input type="text" id="name" name="name" value="" placeholder="Name" required>
-                    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>Add Child</title>
+    </head>
+    <body>
+        <div class="navBar">
+            <ul>
+                <li>
+                    <a href="/home">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/state">
+                        State
+                    </a>
+                </li>
+                <li>
+                    <a href="/dist">
+                        Distirct
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/child">
+                        Child
+                    </a>
+                </li>
+                <li>
+                    <a href="/login">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div style="margin:50px ;"></div>
+        <br>
+        <br><br>
+        {{!-- Form Start --}}
+        <form action="/addChild" method="post" id="add_child" enctype="multipart/form-data">
+            {{!-- <input type="hidden" name="_id" value="{{course._id}}"> --}}
+            {{!-- <div class="new-user"> --}}
+            <div class="form-group">
+                <label for="name" class="radio-label">Name</label>
+                <input type="text" id="name" name="name" value="" placeholder="Enter Name">
+            </div>
 
-                    <div class="form-group">
-                        <label for="gender" class="radio-label">Gender: &nbsp &nbsp</label>
-                        <div class="inline">
-                            <label for="radio-2" class="radio-label">Male</label>
-                            <input type="radio" id="radio-2" name="gender" value="Male" required>
-                        </div>
-                        <div class=" inline">
-                            <label for="radio-3" class="radio-label">Female</label>
-                            <input type="radio" id="radio-3" name="gender" value="Female" >
-                        </div>
-                    </div>
+            <div class="form-group">
+                <label for="gender" class="radio-label">Gender: &nbsp &nbsp</label>
+                <div class="inline">
+                    <label for="radio-2" class="radio-label">Male</label>
+                    <input type="radio" id="radio-2" name="gender" value="Male">
+                </div>
+                <div class=" inline">
+                    <label for="radio-3" class="radio-label">Female</label>
+                    <input type="radio" id="radio-3" name="gender" value="Female">
+                </div>
+            </div>
 
-                   <div class="form-group">
-                        <label for="dob" class="radio-label">Date of Birth</label>
-                        <input type="text" id="dob" name="dob" value="" placeholder="DD/MM/YYYY" required>
-                    </div>
+            <div class="form-group">
+                <label for="dob" class="radio-label">Date of Birth</label>
+                <input type="text" id="dob" name="dob" value="" placeholder="DD/MM/YYYY">
+            </div>
 
-                    <div class="form-group">
-                        <label for="fatherNAme" class="radio-label">Father's Name</label>
-                        <input type="text" id="fatherName" name="fatherName" value="" placeholder="Enter Father Name" required>
-                    </div>
+            <div class="form-group">
+                <label for="fatherName" class="radio-label">Father's Name</label>
+                <input
+                    type="text"
+                    id="fatherName"
+                    name="fatherName"
+                    value=""
+                    placeholder="Enter Father Name">
+            </div>
 
-                    <div class="form-group">
-                        <label for="motherNAme" class="radio-label">Mother's Name</label>
-                        <input type="text" id="motherName" name="motherName" value="" placeholder="Enter Mother Name" required>
-                    </div>
-                   
-  <label for="StateName">State Name</label>
-                    <select name="stateName">
-  <option value="Nothing_Select">Select State Name</option>
-  {{#each StateList}}
-  <option name="stateName">{{stateName}}</option>
-  {{/each}}
-</select>
-<br>
-      <label for="DistName">District Name</label>
-<select name="distName">
-  <option value="Nothing_Select">Select District Name</option>
-  {{#each DistName}}
-  <option name="distName">{{distName}}</option>
-  {{/each}}
-</select>
-<br>
- 
+            <div class="form-group">
+                <label for="motherName" class="radio-label">Mother's Name</label>
+                <input
+                    type="text"
+                    id="motherName"
+                    name="motherName"
+                    value=""
+                    placeholder="Enter Mother Name">
+            </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn text-dark update"> SUBMIT</button>
-                    </div>
+            <label for="StateName">State Name</label>
+            <select name="stateName">
+                <option value="">Select State Name</option>
+                {{#each StateList}}
+                    <option name="stateName">{{stateName}}</option>
+                {{/each}}
+            </select>
+            <br>
+            <label for="DistName">District Name</label>
+            <select name="distName">
+                <option value="">Select District Name</option>
+                {{#each DistName}}
+                    <option name="distName">{{distName}}</option>
+                {{/each}}
+            </select>
+            <br>
 
-                    {{!-- </div> --}}
-            </form>
-            {{!-- Form End --}}
-</body>
+            <div class="form-group">
+                <label>Select your profile picture:</label>
+                <input type="file" name="userImage"/>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn text-dark update">
+                    SUBMIT</button>
+            </div>
+
+            {{!-- </div> --}}
+        </form>
+        {{!-- Form End --}}
+    </body>
 </html>
